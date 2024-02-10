@@ -14,7 +14,7 @@ With the use of Spotify's Web API, songs are pulled from the selected genre of F
 
 ## Tools
 
-For this project I used React for the frontend and node.js and express for my server which handled all of the Spotify OAuth2.0 authentication & authorization. For planning, I used FigJam by Figma. I found planning to be helpful, but significantly less important when working solo.
+For this project I used React for the frontend and node.js and express for the backend which handled all of the Spotify OAuth2.0 authentication & authorization. For planning, I used FigJam by Figma. I found planning to be helpful, but significantly less important when working solo.
 
 ## Problems
 
