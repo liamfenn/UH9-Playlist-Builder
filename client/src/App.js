@@ -52,6 +52,8 @@ function App() {
   const [ destination, setDestination ] = useState(null);
   const [ travelMode, setTravelMode ] = useState('DRIVING');
   const [ travelTimeMs, setTravelTimeMs ] = useState(null);
+  const [ selectedGenre, setSelectedGenre ] = useState("All");
+  const [ playlistUrl, setPlaylistUrl ] = useState("");
 
   useEffect(() => {
 
@@ -91,13 +93,16 @@ function App() {
   const createPlaylist = async () => {
     if (userId) {
       try {
-        // Ensure destination.name is used
-        const playlistName = `${travelMode.charAt(0).toUpperCase() + travelMode.slice(1).toLowerCase()} to ${destination.name}`;
-
+        // Format the genre string: if 'All', leave it empty; otherwise, use the genre followed by a space
+        const genreString = selectedGenre !== 'All' ? `${selectedGenre} ` : '';
+        // Ensure destination.name is used and capitalize the first letter of the travelMode
+        const playlistName = `${genreString}${travelMode.charAt(0).toUpperCase() + travelMode.slice(1).toLowerCase()} to ${destination.name}`;
+  
         const response = await spotifyApi.createPlaylist(userId, {
           name: playlistName
         });
         console.log("Playlist created: ", response);
+        setPlaylistUrl(response.external_urls.spotify);
         return response.id;
       } catch (error) {
         console.error("Error creating playlist: ", error);
@@ -127,7 +132,13 @@ function App() {
 
   const getFreshTracks = async (travelTimeMs) => {
     try {
-      const searchResponse = await spotifyApi.searchPlaylists('Fresh Finds');
+      // Construct the search query based on the selected genre
+      let searchQuery = 'Fresh Finds';
+      if (selectedGenre !== 'All') {
+        searchQuery += ` ${selectedGenre}`; // Append the selected genre to the search query
+      }
+
+      const searchResponse = await spotifyApi.searchPlaylists(searchQuery);
       console.log('Search Response:', searchResponse); // Log to debug
       const freshFindsPlaylist = searchResponse.playlists.items[0]; // Use the first playlist
       if (!freshFindsPlaylist) {
@@ -183,21 +194,51 @@ function App() {
 
   return (
     <div className="App">
-      {!loggedIn && <a href='http://localhost:8888'>Login to Spotify</a>}
+      {!loggedIn && <a href='http://localhost:8888' style={{ textDecoration: 'none' }}>
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100vh'
+        }}>
+          <button>
+            <h1>Click Anywhere to Start</h1>
+          </button>
+        </div>
+        </a>}
       {loggedIn && (
         <>
-          <PlaceSearch placeholder="Enter Origin" onPlaceSelected={(place) => setOrigin(place)} />
-          <PlaceSearch placeholder="Enter Destination" onPlaceSelected={(place) => {
-            // Assuming place has a name property and geometry for lat/lng
-            console.log(place);
-            setDestination({ name: place.formatted_address.split(',')[0], lat: place.lat, lng: place.lng });
-          }} />
-          <select value={travelMode} onChange={(e) => setTravelMode(e.target.value)}>
-            <option value="DRIVING">Driving</option>
-            <option value="WALKING">Walking</option>
-            <option value="BICYCLING">Cycling</option>
-          </select>
-          <button onClick={() => handleCreatePlaylistWithTracks()}>Create Playlist</button>
+        <div className='flex'>
+          <div className='flex-od'>
+            <PlaceSearch placeholder="Enter Origin" onPlaceSelected={(place) => setOrigin(place)} />
+              <PlaceSearch placeholder="Enter Destination" onPlaceSelected={(place) => {
+                console.log(place);
+                setDestination({ name: place.formatted_address.split(',')[0], lat: place.lat, lng: place.lng });
+              }} />
+          </div>
+            <select value={travelMode} onChange={(e) => setTravelMode(e.target.value)}>
+              <option value="DRIVING">Driving</option>
+              <option value="WALKING">Walking</option>
+              <option value="BICYCLING">Cycling</option>
+            </select>
+            <select value={selectedGenre} onChange={(e) => setSelectedGenre(e.target.value)}>
+              <option value="All">All</option>
+              <option value="Rock">Rock</option>
+              <option value="Country">Country</option>
+              <option value="Folk">Folk</option>
+              <option value="Indie">Indie</option>
+              <option value="Pop">Pop</option>
+              <option value="Hip-Hop">Hip-Hop</option>
+              <option value="R&B">R&B</option>
+              <option value="Dance">Dance</option>
+            </select>
+            <button onClick={() => handleCreatePlaylistWithTracks()}>Create Playlist</button>
+            {playlistUrl && (
+              <a href={playlistUrl} target="_blank" rel="noopener noreferrer">
+                <button>Open Playlist</button>
+              </a>
+            )}
+        </div>
         </>
       )}
     </div>

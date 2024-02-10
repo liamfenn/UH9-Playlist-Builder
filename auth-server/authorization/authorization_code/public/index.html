@@ -16,11 +16,27 @@
     </style>
   </head>
 
-  <body>
-    <div class="container">
+  <body style="background-color: #121212;">
+    <div class="container" 
+      style="display: flex;
+      flex-direction: column;
+      gap: 30px;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;">
       <div id="login">
-        <h1>This is an example of the Authorization Code flow</h1>
-        <a href="/login" class="btn btn-primary">Log in with Spotify</a>
+        <a href="/login">
+          <button 
+            style="background-color: #1ED750; 
+            font-size: 16px; 
+            text-decoration: none; 
+            color: #000;
+            border: none;
+            padding: 20px;
+            border-radius: 30px;">
+            Log in with Spotify
+          </button>
+        </a>
       </div>
       <div id="loggedin">
         <div id="user-profile">

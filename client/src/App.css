@@ -36,3 +36,53 @@
     transform: rotate(360deg);
   }
 }
+
+button {
+  background-color: #121212; /* Spotify green */
+  color: #1ED760;
+  padding: 10px 20px;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+body, .App {
+  background-color: #121212;
+  color: white;
+}
+
+h1 {
+  font-size: 34px;
+}
+
+.flex {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.flex-od {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+select {
+  width: 100px;
+  height: 30px;
+  background-color: #282c34;
+  border: none;
+  color: #717171;
+}
+
+.form-control.pac-target-input {
+  width: 300px;
+  height: 40px;
+  background-color: #282c34;
+  color: white;
+  border: none;
+}
