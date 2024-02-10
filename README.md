@@ -23,9 +23,9 @@ The biggest problem I faced was probably the first step, creating and setting up
 ## APIs & Open-Source
 
 I used 3 API's for this project, listed below:
-Spotify Web API: https://developer.spotify.com/documentation/web-api
-Google Maps' Places API: https://developers.google.com/maps/documentation/places/web-service
-      Google Maps' Distance Matrix API: https://developers.google.com/maps/documentation/distance-matrix
+Spotify Web API: https://developer.spotify.com/documentation/web-api  
+Google Maps' Places API: https://developers.google.com/maps/documentation/places/web-service   
+Google Maps' Distance Matrix API: https://developers.google.com/maps/documentation/distance-matrix  
 
 I also made use of an open-source repo of Spotify OAuth2.0 Authorization examples. This was released by developers at Spotify in order to make the uathenication process easier for users using their Web API. This was a template and I was able to change css along with endpoints nessecary to get my server running and redirecting as nessecary. This repo is linked below:
 Spotify Web API Authorization Examples: https://github.com/spotify/web-api-examples/tree/master
