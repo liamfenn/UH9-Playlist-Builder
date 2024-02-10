@@ -22,7 +22,7 @@ The biggest problem I faced was probably the first step, creating and setting up
 
 ## APIs & Open-Source
 
-I used 3 API's for this project, listed below:
+I used 3 API's for this project, listed below:  
 Spotify Web API: https://developer.spotify.com/documentation/web-api  
 Google Maps' Places API: https://developers.google.com/maps/documentation/places/web-service   
 Google Maps' Distance Matrix API: https://developers.google.com/maps/documentation/distance-matrix  
